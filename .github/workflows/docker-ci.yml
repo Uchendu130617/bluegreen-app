@@ -11,7 +11,7 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ uchendu130617/bluegreen-app }}
+  IMAGE_NAME: uchendu130617/bluegreen-app
 
 jobs:
   build-and-push:
@@ -32,7 +32,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          push: false
+          load: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
@@ -52,10 +52,6 @@ jobs:
           docker rm bluegreen-test
 
       - name: Push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: true
-          tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        run: |
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
