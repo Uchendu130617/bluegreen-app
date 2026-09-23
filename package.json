@@ -1,0 +1,9 @@
+{
+  "name": "bluegreen-app",
+  "version": "1.0.0",
+  "description": "Blue/Green deployment application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
