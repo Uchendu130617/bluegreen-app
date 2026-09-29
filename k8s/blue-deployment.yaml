@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blue-app
+  namespace: bluegreen
+  labels:
+    app: blue-app
+    environment: blue
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: blue-app
+      environment: blue
+  template:
+    metadata:
+      labels:
+        app: blue-app
+        environment: blue
+    spec:
+      containers:
+        - name: bluegreen-app
+          image:  ghcr.io/uchendu130617/bluegreen-app:958c9ad7c0932d155a2bef3cab21148dcc7bdfa8
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
